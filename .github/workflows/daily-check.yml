@@ -1,0 +1,26 @@
+# Runs the bot on GitHub's servers every weekday, for free, with no computer on.
+# Setup: repo Settings > Secrets and variables > Actions > New repository secret
+#        add DISCORD_WEBHOOK_URL (and/or TELEGRAM_BOT_TOKEN + TELEGRAM_CHAT_ID).
+name: daily-check
+
+on:
+  schedule:
+    - cron: "30 16 * * 1-5"    # 16:30 UTC Mon-Fri, after the ECB publishes
+  workflow_dispatch:            # adds a "Run workflow" button for manual runs
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Check targets
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        # --no-state: each run is a fresh machine, so alert whenever a target is hit
+        run: python -m cambio_alert check --no-state --history "" --language pt
