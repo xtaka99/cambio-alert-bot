@@ -4,8 +4,8 @@
     { "pair": "USD-BRL", "below": 5.20, "note": "good day to pay US suppliers" },
     { "pair": "JPY-BRL", "below": 0.0340, "note": "good day for Japan orders" },
     { "pair": "EUR-BRL", "below": 6.00, "note": "Paris purchases" },
-    { "pair": "CNY-BRL", "below": 0.72 },
-    { "pair": "HKD-BRL", "below": 0.66 },
+    { "pair": "CNY-BRL", "below": 0.72, "note": "Shanghai purchases" },
+    { "pair": "HKD-BRL", "below": 0.66, "note": "Hong Kong purchases" },
     { "pair": "USD-JPY", "above": 158, "note": "strong dollar in Japan: buy yen with USD" }
   ]
 }
